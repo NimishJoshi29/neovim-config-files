@@ -39,6 +39,38 @@ return { -- Autocompletion
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
     luasnip.config.setup {}
+    local icons = {
+      Reference = ' ',
+      File = ' ',
+      Module = '󰕳 ',
+      Namespace = ' ',
+      Package = ' ',
+      Class = ' ',
+      Method = ' ',
+      Property = ' ',
+      Field = ' ',
+      Constructor = '󱌢 ',
+      Enum = ' ',
+      Interface = ' ',
+      Function = '󰡱 ',
+      Variable = ' ',
+      Constant = ' ',
+      String = ' ',
+      Number = ' ',
+      Boolean = ' ',
+      Array = ' ',
+      Object = ' ',
+      Key = ' ',
+      Null = '󰟢 ',
+      EnumMember = ' ',
+      Struct = ' ',
+      Event = ' ',
+      Operator = ' ',
+      TypeParameter = ' ',
+      Snippet = ' ',
+      Keyword = ' ',
+      Text = '󰀬 ',
+    }
 
     cmp.setup {
       snippet = {
@@ -104,6 +136,16 @@ return { -- Autocompletion
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'path' },
+      },
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      },
+      formatting = {
+        format = function(_, vim_item)
+          vim_item.kind = (icons[vim_item.kind] or 'FOO') .. vim_item.kind
+          return vim_item
+        end,
       },
     }
   end,
